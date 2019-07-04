@@ -169,7 +169,7 @@ class Paycats
         $method = 'POST';
         
         if (!isset($data['mch_id'])) {
-            $data['mch_id'] = PaycatsSignature::make($data, $this->config['mch_id']);
+            $data['mch_id'] = $this->config['mch_id'];
         }
 
         if (!isset($data['sign'])) {

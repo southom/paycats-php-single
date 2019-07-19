@@ -167,6 +167,10 @@ class Paycats
     private function doRequest($url, $data, $https = true)
     {
         $method = 'POST';
+        
+        if (!isset($data['mch_id'])) {
+            $data['mch_id'] = $this->config['mch_id'];
+        }
 
         if (!isset($data['sign'])) {
             $data['sign'] = PaycatsSignature::make($data, $this->config['key']);

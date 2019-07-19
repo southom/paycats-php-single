@@ -219,6 +219,35 @@ class Paycats
 
         return json_decode($response);
     }
+
+    /**
+     * 处理通知请求
+     * @param callable $callback
+     * @return bool
+     * @throws PaycatsInvalidSignatureException
+     */
+    public function serve(callable $callback)
+    {
+        $data = $_POST;
+
+        if (isset($data['sign'])) {
+            if (!PaycatsSignature::verify($data, $this->config['key'])) {
+                throw new PaycatsInvalidSignatureException('签名错误');
+            }
+        }
+
+        try {
+            $ret = $callback($data);
+
+            if ($ret) {
+                return true;
+            }
+        } catch (\Exception $e) {
+            // no code
+        }
+
+        return false;
+    }
 }
 
 
@@ -272,7 +301,12 @@ class PaycatsSignature
     }
 }
 
-
+class PaycatsNotifyType
+{
+    const ORDER_SUCCEEDED = 'order.succeeded';
+    const ORDER_CLOSED = 'order.closed';
+    const REFUND_SUCCEEDED = 'refund.succeeded';
+}
 class PaycatsException extends \Exception {}
 class PaycatsHttpException extends PaycatsException{}
 class PaycatsInvalidArgumentException extends PaycatsException{}

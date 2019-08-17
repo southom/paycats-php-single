@@ -36,10 +36,8 @@ $config = [
 $paycats = new Paycats($config);
 
 $data = [
-    'mch_id' => '162934501',
     'total_fee' => 1,
     'out_trade_no' => 'test-order-18481',
-    'sign' => '',
     'body' => '',
 ];
 

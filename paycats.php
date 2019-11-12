@@ -17,7 +17,7 @@ class Paycats
 
     const BASE_API = 'https://api.paycats.cn/v1/';
     const NATIVE_PAY = 'pay/wx/native';
-    const JSAPI_PAY = 'pay/alipay/jsapi';
+    const JSAPI_PAY = 'pay/wx/jsapi';
     const F2F_PAY = 'pay/alipay/f2f';
     const CASHIER_PAY = 'pay/wx/cashier';
     const WX_OPENID = 'wx/openid';
